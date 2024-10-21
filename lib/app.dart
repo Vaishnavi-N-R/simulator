@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
-      home: const HomePage(), // Set HomePage as the initial screen
+      home:  HomePage(), // Set HomePage as the initial screen
     );
   }
 }
