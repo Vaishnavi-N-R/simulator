@@ -1,5 +1,6 @@
 // widgets/custom_drawer.dart
 import 'package:flutter/material.dart';
+import 'package:trade_simulator/screens/dummy.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -26,14 +27,18 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              Navigator.pop(context); // Close the drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Dummy1())); // Close the drawer
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {
-              Navigator.pop(context); // Close the drawer
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Dummy2()));
             },
           ),
         ],
