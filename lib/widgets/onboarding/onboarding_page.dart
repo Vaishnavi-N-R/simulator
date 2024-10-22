@@ -22,13 +22,14 @@ class OnBoardingPage extends StatelessWidget {
           gradient: LinearGradient(
             colors: Get.isDarkMode
                 ? [
-                    Colors.black,
-                    Colors.grey[900]!, // Dark gradient for dark mode
+                    const Color.fromARGB(255, 75, 71, 71), // Start color for dark mode
+                    const Color.fromARGB(255, 240, 196, 63), // End color for dark mode
                   ]
                 : [
+                    Colors.white, // Start color for light mode
                     const Color.fromARGB(
-                        255, 240, 239, 237), // Start color of the gradient
-                    Colors.black, // End color of the gradient
+                        255, 240, 239, 237), // Light gradient color
+                    Colors.amber, // End color for light mode
                   ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
