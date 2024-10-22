@@ -1,12 +1,12 @@
 class TTexts {
 
-  static const String onBoardingTitle1 = "Choose your product";
-  static const String onBoardingTitle2 = "Select Payment Method";
-  static const String onBoardingTitle3 = "Deliver at your doorstep";
+  static const String onBoardingTitle1 = "Question 1";
+  static const String onBoardingTitle2 = "Question 2";
+  static const String onBoardingTitle3 = "Question 3";
 
-  static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
-  static const String onBoardingSubTitle2 = "For Seamless Transactions , Choose Your Payment Path - Your Convenience , Our Priority!";
-  static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift , Secure, and Contactless Delivery!";
+  static const String onBoardingSubTitle1 = "What is a stock?";
+  static const String onBoardingSubTitle2 = "Which of the following best describes \"day trading\"?";
+  static const String onBoardingSubTitle3 = "What does \"bull market\" refer to?";
 
   static const String homeAppbarTitle = "Good Day for shopping";
   static const String homeAppbarSubTitle = "ABC";

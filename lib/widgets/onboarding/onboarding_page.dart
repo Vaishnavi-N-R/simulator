@@ -41,7 +41,7 @@ class OnBoardingPage extends StatelessWidget {
               height: TSizes.spaceBtwItems,
             ),
             Text(subTitle,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.left),
           ],
         ));
