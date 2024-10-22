@@ -28,7 +28,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
           dotWidth: 10, // You can adjust dot width as needed
           spacing: 8, // Space between dots
         ),
-        count: 3, // Adjust based on the number of onboarding pages
+        count: 4, // Adjust based on the number of onboarding pages
       ),
     );
   }

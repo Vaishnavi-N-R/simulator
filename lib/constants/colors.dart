@@ -7,6 +7,8 @@ class TColors {
   static const Color secondary = Colors.black;
   static const Color accent = Colors.white;
 
+  static const Color selected = Colors.green; // Example highlight color
+
   static const Gradient linearGradientlight = LinearGradient(
       begin: Alignment(0.0, 0.0),
       end: Alignment(0.707, -0.707),
