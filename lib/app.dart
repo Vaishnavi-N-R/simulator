@@ -17,19 +17,24 @@ class App extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       home: AnimatedSplashScreen(
         duration: 3000,
-        splash: SizedBox(
-          width: 600, // Set the width of the animation
-          height: 600, // Set the height of the animation
-          child: Lottie.asset(
-            'assets/animations/splash.json',
-            fit: BoxFit
-                .contain, // Ensures that the animation scales to fit within the SizedBox
-          ),
+        splash: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: Lottie.asset(
+                'assets/animations/splash.json',
+                width: 350, // Control the width directly here
+                height: 650, // Control the height directly here
+                fit: BoxFit
+                    .cover, // Ensures the animation fills the box properly
+              ),
+            )
+          ],
         ),
         nextScreen: HomePage(),
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: Get.isDarkMode ? Colors.black : Colors.white,
-      ), // Set HomePage as the initial screen
+      ),
     );
   }
 }
