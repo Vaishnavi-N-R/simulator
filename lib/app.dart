@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:trade_simulator/constants/colors.dart';
 import 'package:trade_simulator/constants/sizes.dart';
 import 'package:trade_simulator/theme/theme.dart';
 import 'package:trade_simulator/screens/home_page.dart';
@@ -18,19 +19,9 @@ class App extends StatelessWidget {
       darkTheme: TAppTheme.darkTheme,
       home: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: Get.isDarkMode
-                ? [
-                    Colors.black,
-                    Colors.grey[900]!, // Dark gradient for dark mode
-                  ]
-                : [
-                    const Color.fromARGB(255, 240, 239, 237), // Start color of the gradient
-                    Colors.black, // End color of the gradient
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+         gradient: Get.isDarkMode
+              ? TColors.linearGradientdark // Use the defined gradient for dark mode
+              : TColors.linearGradientlight, // Use the defined gradient for light mode
         ),
         child: AnimatedSplashScreen(
           duration: 3000,

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/route_manager.dart';
 import 'package:trade_simulator/constants/colors.dart';
 import 'package:trade_simulator/constants/image_strings.dart';
 import 'package:trade_simulator/constants/sizes.dart';
 import 'package:trade_simulator/constants/text_strings.dart';
 import 'package:trade_simulator/device/device_utility.dart';
 import 'package:trade_simulator/helpers/helper_functions.dart';
+import 'package:trade_simulator/screens/home_page.dart';
 import 'package:trade_simulator/widgets/onboarding/onboarding_dot_navigation.dart';
 import 'package:trade_simulator/widgets/onboarding/onboarding_page.dart';
 import 'package:trade_simulator/widgets/onboarding/onboarding_skip.dart';
 
 class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
+  OnBoardingScreen({super.key});
+
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class OnBoardingScreen extends StatelessWidget {
       body: Stack(
         children: [
           PageView(
+            controller: _pageController,
             children: const [
               OnBoardingPage(
                 // image: TImages.onBoardingImage1,
@@ -37,8 +43,8 @@ class OnBoardingScreen extends StatelessWidget {
             ],
           ),
           const OnBoardingSkip(),
-          OnBoardingDotNavigation(),
-          OnBoardingNextButton()
+          OnBoardingDotNavigation(pageController: _pageController),
+          OnBoardingNextButton(pageController: _pageController)
         ],
       ),
     );
@@ -46,8 +52,11 @@ class OnBoardingScreen extends StatelessWidget {
 }
 
 class OnBoardingNextButton extends StatelessWidget {
+  final PageController pageController; // Store the PageController
+
   const OnBoardingNextButton({
     super.key,
+    required this.pageController,
   });
 
   @override
@@ -57,9 +66,24 @@ class OnBoardingNextButton extends StatelessWidget {
         right: TSizes.defaultspace,
         bottom: TDeviceUtils.getBottomNavigationBarHeight(),
         child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              if (pageController.page?.round() == 2) {
+                // Optionally handle last page scenario (e.g., navigate to another screen)
+                // Navigator.of(context).pushReplacement(/* Navigate to next screen */);
+                          Get.off(() => HomePage()); // Use GetX for navigation
+
+                print(
+                    "Onboarding completed"); // Replace with your navigation code
+              } else {
+                pageController.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn,
+                );
+              }
+            },
             style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(), backgroundColor:dark? TColors.primary: Colors.black),
+                shape: const CircleBorder(),
+                backgroundColor: dark ? TColors.primary : Colors.black),
             child: const Icon(Icons.arrow_right)));
   }
 }
