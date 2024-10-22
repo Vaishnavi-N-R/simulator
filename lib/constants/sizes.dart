@@ -52,7 +52,5 @@ class TSizes {
 
   static const double gridViewSpacing = 16.0;
 
-
+  static const double animationHeight = 1400000;
 }
-
-
