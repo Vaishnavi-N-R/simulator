@@ -28,17 +28,20 @@ class OnBoardingScreen extends StatelessWidget {
               OnBoardingPage(
                 // image: TImages.onBoardingImage1,
                 title: TTexts.onBoardingTitle1,
-                subTitle: TTexts.onBoardingSubTitle1,
+                subTitle: TTexts.onBoardingSubTitle1, option1: TTexts.a1,
+                option2: TTexts.b1,
               ),
               OnBoardingPage(
                 // image: TImages.onBoardingImage2,
                 title: TTexts.onBoardingTitle2,
-                subTitle: TTexts.onBoardingSubTitle2,
+                subTitle: TTexts.onBoardingSubTitle2, option1: TTexts.a2,
+                option2: TTexts.b2,
               ),
               OnBoardingPage(
                 // image: TImages.onBoardingImage3,
                 title: TTexts.onBoardingTitle3,
-                subTitle: TTexts.onBoardingSubTitle3,
+                subTitle: TTexts.onBoardingSubTitle3, option1: TTexts.a3,
+                option2: TTexts.b3,
               ),
             ],
           ),
@@ -70,7 +73,7 @@ class OnBoardingNextButton extends StatelessWidget {
               if (pageController.page?.round() == 2) {
                 // Optionally handle last page scenario (e.g., navigate to another screen)
                 // Navigator.of(context).pushReplacement(/* Navigate to next screen */);
-                          Get.off(() => HomePage()); // Use GetX for navigation
+                Get.off(() => HomePage()); // Use GetX for navigation
 
                 print(
                     "Onboarding completed"); // Replace with your navigation code

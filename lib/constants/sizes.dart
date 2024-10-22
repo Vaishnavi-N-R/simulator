@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class TSizes {
   static const double xs = 4.0;
   static const double sm = 8.0;
@@ -14,10 +16,15 @@ class TSizes {
   static const double fontSizeMd = 26.0;
   static const double fontSizeLg = 18.0;
 
-  static const double buttonHeight = 18.0;
+  static const double buttonHeight = 50.0;
   static const double buttonRadius = 12.0;
-  static const double buttonWidth = 120.0;
+  // static const double buttonWidth = 120.0;
   static const double buttonElevation = 4.0;
+
+  static double buttonWidth(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    return screenWidth * 0.9; // 80% of the screen width
+  }
 
   static const double appBarHeight = 56.0;
 
@@ -51,6 +58,4 @@ class TSizes {
   static const double loadingIndicatorSize = 36.0;
 
   static const double gridViewSpacing = 16.0;
-
-  static const double animationHeight = 1400000;
 }
