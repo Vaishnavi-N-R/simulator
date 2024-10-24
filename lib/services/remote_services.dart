@@ -13,26 +13,26 @@ class RemoteServices {
         '${Data.BASE_URL}/learning-course/list'; // Make sure the base URL is correct and complete
     var response = await client.get(Uri.parse(url));
 
-    print("Response for lessons: ${response}");
+    print("Response for lessons: ${response.body}");
 
-    if (response.statusCode == 200) {
-      try {
-        var jsonString = response.body;
-        print("Response JSON: $jsonString");
+    // if (response.statusCode == 200) {
+    //   try {
+    //     var jsonString = response.body;
+    //     print("Response JSON: $jsonString");
 
-        // Parse the JSON response into LearnResponse model
-        var jsonResponse = LearnResponse.fromJson(json.decode(jsonString));
+    //     // Parse the JSON response into LearnResponse model
+    //     var jsonResponse = LearnResponse.fromJson(json.decode(jsonString));
 
-        // Return the list of LearningCourse if successful
-        return jsonResponse.learningCourses;
-      } catch (e) {
-        // Catch and print any errors during JSON parsing
-        print("Error parsing response: $e");
-        return null;
-      }
-    } else {
-      print("Failed to load lessons. Status code: ${response.statusCode}");
-      return null;
-    }
+    //     // Return the list of LearningCourse if successful
+    //     return jsonResponse.learningCourses;
+    //   } catch (e) {
+    //     // Catch and print any errors during JSON parsing
+    //     print("Error parsing response: $e");
+    //     return null;
+    //   }
+    // } else {
+    //   print("Failed to load lessons. Status code: ${response.statusCode}");
+    //   return null;
+    // }
   }
 }
