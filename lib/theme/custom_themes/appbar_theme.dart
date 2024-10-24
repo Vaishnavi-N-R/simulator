@@ -7,7 +7,7 @@ class TAppBarTheme {
       elevation: 0,
       centerTitle: false,
       scrolledUnderElevation: 0,
-      backgroundColor: Color.fromARGB(255, 168, 162, 162),
+      backgroundColor: Colors.white,
       surfaceTintColor: Colors.transparent,
       iconTheme: IconThemeData(color: Colors.black, size: 24),
       actionsIconTheme: IconThemeData(color: Colors.black, size: 24),
@@ -24,27 +24,5 @@ class TAppBarTheme {
       actionsIconTheme: IconThemeData(color: Colors.black, size: 24),
       titleTextStyle: TextStyle(
           fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.white));
-
-  static const gradientAppBarTheme = AppBarTheme(
-    elevation: 0,
-    centerTitle: false,
-    backgroundColor: Colors.transparent, // Transparent so the gradient shows
-    iconTheme: IconThemeData(color: Colors.black, size: 24),
-    actionsIconTheme: IconThemeData(color: Colors.black, size: 24),
-    titleTextStyle: TextStyle(
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-  );
-
-  // The gradient decoration itself
-  static const BoxDecoration gradientDecoration = BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        Colors.white,
-        Colors.amber,
-      ],
-    ),
-  );
+          
 }

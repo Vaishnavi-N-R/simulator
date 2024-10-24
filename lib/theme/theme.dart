@@ -20,7 +20,7 @@ class TAppTheme {
       scaffoldBackgroundColor: Colors.white,
       textTheme: TTextTheme.lightTextTheme,
       chipTheme: TChipTheme.lightChipTheme,
-      appBarTheme: TAppBarTheme.gradientAppBarTheme,
+      appBarTheme: TAppBarTheme.lightAppBarTheme,
       checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
       bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
       elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
