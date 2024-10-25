@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:trade_simulator/constants/colors.dart';
+import 'package:trade_simulator/constants/text_strings.dart';
+import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
 
 class LearnDesign extends StatelessWidget {
   final String title;
@@ -17,14 +22,9 @@ class LearnDesign extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        gradient: LinearGradient(
-          colors: [
-            Colors.white,
-            Colors.amber.shade200,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: Get.isDarkMode
+              ? TColors.linearGradientdark // Use the defined gradient for dark mode
+              : TColors.linearGradientlight,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.4),
@@ -40,11 +40,9 @@ class LearnDesign extends StatelessWidget {
           // Title Section
           Text(
             title,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueGrey[900],
-            ),
+            style: Get.isDarkMode
+              ?TTextTheme.darkTextTheme.headlineMedium
+              :TTextTheme.lightTextTheme.headlineMedium
           ),
           SizedBox(height: 10),
 
@@ -54,11 +52,9 @@ class LearnDesign extends StatelessWidget {
             children: [
               Text(
                 'Prize Money',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[700],
-                ),
+                style: Get.isDarkMode
+              ?TTextTheme.darkTextTheme.bodyLarge
+              :TTextTheme.lightTextTheme.bodyLarge
               ),
               SizedBox(width: 10),
               Text(
@@ -66,7 +62,9 @@ class LearnDesign extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.green[700],
+                  color:Get.isDarkMode
+              ? Colors.green
+              : Colors.green[700]
                 ),
               ),
             ],
