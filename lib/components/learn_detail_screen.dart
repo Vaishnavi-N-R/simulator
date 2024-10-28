@@ -10,14 +10,12 @@ class LearnDetailScreen extends StatelessWidget {
   final String title;
   final String content;
   final String id;
-
   const LearnDetailScreen({
     Key? key,
     required this.title,
     required this.content,
     required this.id,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,9 +29,7 @@ class LearnDetailScreen extends StatelessWidget {
                 ? TTextTheme.darkTextTheme.headlineMedium
                 : TTextTheme.lightTextTheme.headlineMedium),
         SizedBox(height: 10),
-
         // Prize Money Section
-
         Text(
           removeHtmlTags(content),
           style: TTextTheme.lightTextTheme.bodySmall,

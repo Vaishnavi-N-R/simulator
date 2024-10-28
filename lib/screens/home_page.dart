@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   // List of widgets for each page
   final List<Widget> _pages = [
     Center(child: Text('Home Page')),
-    LearnView(),
+    LearnDesign(title: '',),
     Center(child: Text('Profile Page')),
   ];
 

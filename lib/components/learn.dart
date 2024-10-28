@@ -11,14 +11,12 @@ class LearnDesign extends StatelessWidget {
   final String title;
   final int prizeMoney;
   final String id;
-
   const LearnDesign({
     Key? key,
     required this.title,
     required this.prizeMoney,
     required this.id,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,7 +35,6 @@ class LearnDesign extends StatelessWidget {
                       ? TTextTheme.darkTextTheme.headlineMedium
                       : TTextTheme.lightTextTheme.headlineMedium),
               SizedBox(height: 10),
-
               // Prize Money Section
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
