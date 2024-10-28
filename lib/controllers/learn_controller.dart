@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:trade_simulator/models/learn_response.dart';
 import 'package:trade_simulator/services/remote_services.dart';
+
 class LearnController extends GetxController {
   var learningCourses = <LearningCourse>[].obs;
   var isLoading = true.obs;

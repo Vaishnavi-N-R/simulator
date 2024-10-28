@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:trade_simulator/components/learn.dart';
+import 'package:trade_simulator/components/learn_detail_screen.dart';
 import 'package:trade_simulator/controllers/learn_controller.dart';
-import 'package:trade_simulator/widgets/learn/learn_design.dart';
 
-class LearnView extends StatelessWidget {
-  @override
+class LearnDetails extends StatelessWidget {
+   @override
   Widget build(BuildContext context) {
     final LearnController learnController = Get.put(LearnController());
 
@@ -27,10 +29,10 @@ class LearnView extends StatelessWidget {
               var course = learnController.learningCourses[index];
 
               // Use the LearnDesign widget here
-              return LearnDesign(
+              return LearnDetailScreen(
                 title: course.title,
-                prizeMoney: course.prizeMoney,
-                id: course.id,
+                content: course.content,
+                id:course.id
               );
             },
           ),
