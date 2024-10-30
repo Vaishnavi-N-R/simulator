@@ -25,7 +25,7 @@ class LearnDesign extends StatelessWidget {
         onTap: () => {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LearnDetails()),
+                MaterialPageRoute(builder: (context) => LearnDetails(lessonId: id)),
               )
             },
         child: CardDesignContainer(

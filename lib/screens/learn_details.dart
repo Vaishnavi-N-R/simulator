@@ -5,9 +5,14 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:trade_simulator/components/learn.dart';
 import 'package:trade_simulator/components/learn_detail_screen.dart';
 import 'package:trade_simulator/controllers/learn_controller.dart';
+import 'package:trade_simulator/theme/custom_themes/elevated_button_theme.dart';
+import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
 
 class LearnDetails extends StatelessWidget {
-   @override
+  final String lessonId;
+  const LearnDetails({Key? key, required this.lessonId})
+      : super(key: key); // Constructor
+  @override
   Widget build(BuildContext context) {
     final LearnController learnController = Get.put(LearnController());
 
@@ -17,25 +22,42 @@ class LearnDetails extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
 
-        if (learnController.learningCourses.isEmpty) {
-          return Center(child: Text("No courses available at the moment."));
+        var lesson = learnController.learningCourses.firstWhere(
+          (lesson) => lesson.id == lessonId,
+        );
+        if (lesson == null) {
+          return Center(child: Text("No lesson found with the given ID."));
         }
 
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: learnController.learningCourses.length,
-            itemBuilder: (context, index) {
-              var course = learnController.learningCourses[index];
-
-              // Use the LearnDesign widget here
-              return LearnDetailScreen(
-                title: course.title,
-                content: course.content,
-                id:course.id
-              );
-            },
-          ),
+             child: SingleChildScrollView(
+              child: Column(
+            children: [
+              LearnDetailScreen(
+                title: lesson.title,
+                content: lesson.content,
+                id: lesson.id,
+              ),
+              SizedBox(height: 20), // Add some spacing
+              // Button to navigate to the Quiz
+              ElevatedButton(
+                onPressed: () {
+                  // Get.to(() => QuizComponents(courseId: course.id));
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Text('Take Quiz',  style: Get.isDarkMode
+                      ? TTextTheme.darkTextTheme.titleLarge // Use dark text theme
+                      : TTextTheme.lightTextTheme.titleLarge,),
+                ),
+                style: Get.isDarkMode
+                    ? TElevatedButtonTheme
+                        .darkElevatedButtonTheme.style // Use dark theme
+                    : TElevatedButtonTheme.lightElevatedButtonTheme.style,
+              ),
+            ],
+          )),
         );
       }),
     );

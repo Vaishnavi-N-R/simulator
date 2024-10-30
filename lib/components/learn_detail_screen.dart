@@ -26,10 +26,12 @@ class LearnDetailScreen extends StatelessWidget {
         TAppBar(
           title: Text("Lesson Detail"),
         ),
-        Text(title,
-            style: Get.isDarkMode
-                ? TTextTheme.darkTextTheme.headlineMedium
-                : TTextTheme.lightTextTheme.headlineMedium),
+        Text(
+          title,
+          style: Get.isDarkMode
+              ? TTextTheme.darkTextTheme.bodySmall
+              : TTextTheme.lightTextTheme.bodySmall,
+        ),
         SizedBox(height: 10),
 
         // Prize Money Section
