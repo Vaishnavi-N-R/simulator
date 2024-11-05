@@ -6,6 +6,7 @@ import 'package:trade_simulator/theme/custom_themes/checkbox_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/chip_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/elevated_button_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/outlined_button_theme.dart';
+import 'package:trade_simulator/theme/custom_themes/snackbar_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/text_field_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
 
@@ -23,9 +24,9 @@ class TAppTheme {
       appBarTheme: TAppBarTheme.lightAppBarTheme,
       checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
       bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
-      elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
       outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
-      inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme);
+      inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
+      snackBarTheme: TSnackbarTheme.lightSnackBarTheme);
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
       fontFamily: 'Poppins',
@@ -37,7 +38,7 @@ class TAppTheme {
       appBarTheme: TAppBarTheme.darkAppBarTheme,
       checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
       bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
-      elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
       outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,
-      inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme);
+      inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
+      snackBarTheme: TSnackbarTheme.darkSnackBarTheme);
 }

@@ -3,31 +3,29 @@ import 'package:flutter/material.dart';
 class TElevatedButtonTheme {
   TElevatedButtonTheme._();
 
-  static final lightElevatedButtonTheme=ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
+  static ButtonStyle lightElevatedButtonTheme= ElevatedButton.styleFrom(
       elevation: 0,
-      foregroundColor: Colors.white,
+      foregroundColor: Colors.black,
       backgroundColor: Colors.amber,
-      disabledForegroundColor: Colors.grey,
+      disabledForegroundColor: Colors.black,
       disabledBackgroundColor: Colors.amber,
-      side: const BorderSide(color: Colors.amber),
+      side: const BorderSide(color: Color.fromARGB(255, 147, 118, 29),),
       padding: const EdgeInsets.symmetric(vertical: 18),
       textStyle: const TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
-    )
+    
   );
 
-   static final darkElevatedButtonTheme=ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
+   static ButtonStyle darkElevatedButtonTheme= ElevatedButton.styleFrom(
       elevation: 0,
       foregroundColor: Colors.white,
-      backgroundColor: Colors.amber,
-      disabledForegroundColor: Colors.grey,
-      disabledBackgroundColor: Colors.grey,
+      backgroundColor: const Color.fromARGB(255, 147, 118, 29),
+      disabledForegroundColor: Colors.white,
+      disabledBackgroundColor:Color.fromARGB(255, 147, 118, 29),
       side: const BorderSide(color: Colors.amber),
       padding: const EdgeInsets.symmetric(vertical: 18),
       textStyle: const TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
-    )
+   
   );
 }

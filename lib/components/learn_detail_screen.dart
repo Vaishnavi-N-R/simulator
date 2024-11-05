@@ -38,7 +38,9 @@ class LearnDetailScreen extends StatelessWidget {
 
         Text(
           removeHtmlTags(content),
-          style: TTextTheme.lightTextTheme.bodySmall,
+          style: Get.isDarkMode
+              ? TTextTheme.darkTextTheme.bodySmall
+              : TTextTheme.lightTextTheme.bodySmall,
         ),
       ],
     );
