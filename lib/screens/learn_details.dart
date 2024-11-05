@@ -6,8 +6,10 @@ import 'package:trade_simulator/components/learn.dart';
 import 'package:trade_simulator/components/learn_detail_screen.dart';
 import 'package:trade_simulator/components/quiz_dialog.dart';
 import 'package:trade_simulator/controllers/learn_controller.dart';
+import 'package:trade_simulator/controllers/login_controller.dart';
 import 'package:trade_simulator/theme/custom_themes/elevated_button_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
+import 'package:trade_simulator/widgets/login_bottom_sheet.dart';
 
 class LearnDetails extends StatelessWidget {
   final String lessonId;
@@ -15,6 +17,8 @@ class LearnDetails extends StatelessWidget {
       : super(key: key); // Constructor
   @override
   Widget build(BuildContext context) {
+      final LoginController loginController = Get.put(LoginController());
+
     final LearnController learnController = Get.put(LearnController());
 
     return Scaffold(
@@ -44,10 +48,16 @@ class LearnDetails extends StatelessWidget {
               // Button to navigate to the Quiz
               ElevatedButton(
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => QuizDialog(quizzes: lesson.quiz),
-                  );
+                  if (loginController.isLoggedIn.value) {
+            // Show Quiz Dialog if the user is logged in
+            showDialog(
+              context: context,
+              builder: (context) => QuizDialog(quizzes: lesson.quiz),
+            );
+          } else {
+            // Show Bottom Sheet to login if the user is not logged in
+            Get.bottomSheet(LoginBottomSheet());
+          }
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
