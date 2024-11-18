@@ -9,7 +9,7 @@ import 'package:trade_simulator/controllers/learn_controller.dart';
 import 'package:trade_simulator/controllers/login_controller.dart';
 import 'package:trade_simulator/theme/custom_themes/elevated_button_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
-import 'package:trade_simulator/widgets/login_bottom_sheet.dart';
+import 'package:trade_simulator/widgets/login/login_bottom_sheet.dart';
 
 class LearnDetails extends StatelessWidget {
   final String lessonId;
