@@ -1,8 +1,8 @@
-// widget/login_bottom_sheet.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trade_simulator/controllers/login_controller.dart';
 import 'package:trade_simulator/theme/custom_themes/bottom_sheet_theme.dart';
+import 'package:trade_simulator/widgets/login/country_code_widget.dart';
 import 'package:trade_simulator/widgets/login/input_action_widget.dart';
 
 class LoginBottomSheet extends StatelessWidget {
@@ -26,16 +26,27 @@ class LoginBottomSheet extends StatelessWidget {
           children: [
             if (!loginController.isLoggedIn.value &&
                 !loginController.isOtpSent.value)
-              InputActionWidget(
+              CountryCodePhoneInput(
                 controller: loginController.phoneNumberController,
-                labelText: 'Enter Phone Number',
-                buttonText: 'Request OTP',
-                onButtonPressed: () {
-                  final phoneNumber =
-                      loginController.phoneNumberController.text;
-                  loginController.requestVerification(phoneNumber);
+                onInputChanged: (phoneNumber) {
+                  // Update the controller with full phone number here
+                  loginController.fullPhoneNumber.value =
+                      phoneNumber.dialCode! +
+                          loginController.phoneNumberController.text;
                 },
               ),
+            ElevatedButton(
+              onPressed: () {
+                // Get the full phone number with country code
+                final phoneNumber =
+                    loginController.fullPhoneNumber.value.isEmpty
+                        ? loginController.phoneNumberController.text
+                        : loginController.fullPhoneNumber.value;
+
+                loginController.requestVerification(phoneNumber);
+              },
+              child: Text('Request OTP'),
+            ),
             if (!loginController.isLoggedIn.value &&
                 loginController.isOtpSent.value)
               InputActionWidget(
@@ -44,7 +55,7 @@ class LoginBottomSheet extends StatelessWidget {
                 buttonText: 'Submit OTP',
                 onButtonPressed: () {
                   final phoneNumber =
-                      loginController.phoneNumberController.text;
+                      loginController.fullPhoneNumber.value;
                   final code = loginController.otpController.text;
                   loginController.verifyCode(phoneNumber, code);
                 },

@@ -7,9 +7,12 @@ import 'package:trade_simulator/constants/data.dart';
 
 class LoginController extends GetxController {
   var isLoggedIn = false.obs;
-  var isOtpSent = false.obs; // New observable
+  var isOtpSent = false.obs;
   final phoneNumberController = TextEditingController();
   final otpController = TextEditingController();
+
+  // Add a variable to store the full phone number (with country code)
+  var fullPhoneNumber = ''.obs;
 
   Future<void> requestVerification(String phoneNumber) async {
     final response = await http.post(
