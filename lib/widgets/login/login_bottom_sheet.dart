@@ -26,27 +26,33 @@ class LoginBottomSheet extends StatelessWidget {
           children: [
             if (!loginController.isLoggedIn.value &&
                 !loginController.isOtpSent.value)
-              CountryCodePhoneInput(
-                controller: loginController.phoneNumberController,
-                onInputChanged: (phoneNumber) {
-                  // Update the controller with full phone number here
-                  loginController.fullPhoneNumber.value =
-                      phoneNumber.dialCode! +
-                          loginController.phoneNumberController.text;
-                },
-              ),
-            ElevatedButton(
-              onPressed: () {
-                // Get the full phone number with country code
-                final phoneNumber =
-                    loginController.fullPhoneNumber.value.isEmpty
-                        ? loginController.phoneNumberController.text
-                        : loginController.fullPhoneNumber.value;
+              Container(
+                child: Column(
+                  children: [
+                    CountryCodePhoneInput(
+                      controller: loginController.phoneNumberController,
+                      onInputChanged: (phoneNumber) {
+                        // Update the controller with full phone number here
+                        loginController.fullPhoneNumber.value =
+                            phoneNumber.dialCode! +
+                                loginController.phoneNumberController.text;
+                      },
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Get the full phone number with country code
+                        final phoneNumber =
+                            loginController.fullPhoneNumber.value.isEmpty
+                                ? loginController.phoneNumberController.text
+                                : loginController.fullPhoneNumber.value;
 
-                loginController.requestVerification(phoneNumber);
-              },
-              child: Text('Request OTP'),
-            ),
+                        loginController.requestVerification(phoneNumber);
+                      },
+                      child: Text('Request OTP'),
+                    )
+                  ],
+                ),
+              ),
             if (!loginController.isLoggedIn.value &&
                 loginController.isOtpSent.value)
               InputActionWidget(
@@ -54,8 +60,7 @@ class LoginBottomSheet extends StatelessWidget {
                 labelText: 'Enter OTP',
                 buttonText: 'Submit OTP',
                 onButtonPressed: () {
-                  final phoneNumber =
-                      loginController.fullPhoneNumber.value;
+                  final phoneNumber = loginController.fullPhoneNumber.value;
                   final code = loginController.otpController.text;
                   loginController.verifyCode(phoneNumber, code);
                 },
