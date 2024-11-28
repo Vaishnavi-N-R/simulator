@@ -5,7 +5,9 @@ import 'package:trade_simulator/services/remote_services.dart';
 class LearnController extends GetxController {
   var learningCourses = <LearningCourse>[].obs;
   var isLoading = true.obs;
-  var category = "defaultCategory".obs; // Placeholder for category if needed
+  var category = "defaultCategory".obs;
+  var selectedCourseId = RxString(""); // To hold the current course ID
+// Placeholder for category if needed
 
   @override
   void onInit() {
@@ -30,6 +32,9 @@ class LearnController extends GetxController {
 
         // Assign the filtered courses to the list
         learningCourses.assignAll(response);
+        void selectCourse(String courseId) {
+          selectedCourseId.value = courseId;
+        }
       }
     } catch (e) {
       print('Error fetching learning courses: $e');

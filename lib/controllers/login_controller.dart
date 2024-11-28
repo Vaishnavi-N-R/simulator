@@ -42,7 +42,9 @@ class LoginController extends GetxController {
 
       // Get the instance of UserController
       final UserController userController = Get.find<UserController>();
-      userController.setUser(responseData['user']); // Set the user data
+      userController.setUser(responseData['user']);
+                userController.setToken(responseData['token']); // Set the token
+// Set the user data
 
       isLoggedIn.value = true;
       isOtpSent.value = false; // Reset OTP status

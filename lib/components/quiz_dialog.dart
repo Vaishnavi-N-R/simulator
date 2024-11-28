@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trade_simulator/controllers/learn_controller.dart';
+import 'package:trade_simulator/controllers/user_controller.dart';
 import 'package:trade_simulator/models/learn_response.dart';
+import 'package:trade_simulator/services/quiz_service.dart';
 import 'package:trade_simulator/theme/custom_themes/elevated_button_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/snackbar_theme.dart';
 import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
@@ -17,36 +20,48 @@ class QuizDialog extends StatefulWidget {
 class _QuizDialogState extends State<QuizDialog> {
   int currentQuestionIndex = 0;
   int? selectedOption;
+  final UserController userController = Get.find<UserController>();
+  final LearnController learnController = Get.find<LearnController>();
 
-  void checkAnswer() {
-    // Find the correct option for the current question
-    final correctAnswer = widget.quizzes[currentQuestionIndex].options
-        .firstWhere((option) => option.optionValue == 0);
+  void checkAnswer() async {
+    try {
+      // Call the service
+      final token =
+          userController.authToken; // Access token from the controller
 
-    if (selectedOption == correctAnswer.optionValue) {
-      // If the answer is correct, go to the next question if available
-      if (currentQuestionIndex < widget.quizzes.length - 1) {
-        setState(() {
-          currentQuestionIndex++;
-          selectedOption = null; // Reset selected option for the new question
-        });
-      } else {
-        // If it's the last question, close the dialog
-        Get.back();
-      }
-    } else {
-      // Show feedback if the answer is incorrect
-      Get.snackbar(
-        "Incorrect",
-        "Please select the correct answer to proceed.",
-        backgroundColor: Get.isDarkMode
-            ? TSnackbarTheme.darkSnackBarTheme.backgroundColor
-            : TSnackbarTheme.lightSnackBarTheme.backgroundColor,
-        colorText: Get.isDarkMode
-            ? TSnackbarTheme.darkSnackBarTheme.contentTextStyle?.color
-            : TSnackbarTheme.lightSnackBarTheme.contentTextStyle?.color,
-        snackPosition: SnackPosition.BOTTOM, // or dark version based on theme
+      final response = await QuizService.submitQuizAnswer(
+        userId: userController.user.value!.id, // Replace with dynamic user ID
+        courseId: learnController
+            .selectedCourseId.value, // Replace with dynamic course ID
+        questionId:
+            widget.quizzes[currentQuestionIndex].id, // Dynamic question ID
+        submittedOption: selectedOption!, token: token,
       );
+
+      if (response['isCorrect']) {
+        Get.snackbar('Correct!', 'You answered correctly!',
+            backgroundColor: Colors.green, snackPosition: SnackPosition.BOTTOM);
+
+        // Move to the next question if correct
+        if (currentQuestionIndex < widget.quizzes.length - 1) {
+          setState(() {
+            currentQuestionIndex++;
+            selectedOption = null; // Reset
+          });
+        } else if (response['isCompleted']) {
+          // Quiz completed
+          Get.back();
+          Get.snackbar('Completed!',
+              'Quiz completed! You won ${response['prizeMoney']}!',
+              backgroundColor: Colors.blue);
+        }
+      } else {
+        Get.snackbar('Try Again!', 'Incorrect answer, please try again.',
+            backgroundColor: Colors.red);
+      }
+    } catch (e) {
+      print("Error: $e");
+      Get.snackbar('Error', 'Failed to submit answer.');
     }
   }
 
@@ -94,8 +109,10 @@ class _QuizDialogState extends State<QuizDialog> {
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: selectedOption == null ? null : checkAnswer,
-              child: Padding(padding:EdgeInsets.symmetric(horizontal: 20),child:Text('Submit')),
-              style: Get.isDarkMode 
+              child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text('Submit')),
+              style: Get.isDarkMode
                   ? TElevatedButtonTheme
                       .darkElevatedButtonTheme // Use dark theme
                   : TElevatedButtonTheme.lightElevatedButtonTheme,

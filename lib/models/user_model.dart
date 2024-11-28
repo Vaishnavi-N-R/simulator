@@ -6,6 +6,7 @@ class User {
   final String role;
   final String createdAt;
   final String updatedAt;
+  
 
   User({
     required this.id,
