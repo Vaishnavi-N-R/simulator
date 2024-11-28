@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:trade_simulator/controllers/user_controller.dart';
 import 'package:trade_simulator/device/device_utility.dart';
 import 'package:trade_simulator/screens/learn.dart';
 import 'package:trade_simulator/utils/navigation_menu.dart';
@@ -15,7 +19,21 @@ class _HomePageState extends State<HomePage> {
 
   // List of widgets for each page
   final List<Widget> _pages = [
-    Center(child: Text('Home Page')),
+    Center(
+      child: Obx(() {
+        // Get instance of UserController
+        final UserController userController = Get.find<UserController>();
+
+        // Check if user data is available
+        if (userController.user.value == null) {
+          return Text(
+              'Loading...'); // Placeholder if user data isn't loaded yet
+        }
+
+        // Display user's role
+        return Text('Role: ${userController.user.value!.role}');
+      }),
+    ),
     LearnView(),
     Center(child: Text('Profile Page')),
   ];

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:trade_simulator/constants/data.dart';
+import 'package:trade_simulator/controllers/user_controller.dart';
 
 class LoginController extends GetxController {
   var isLoggedIn = false.obs;
@@ -37,6 +38,12 @@ class LoginController extends GetxController {
     );
 
     if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+
+      // Get the instance of UserController
+      final UserController userController = Get.find<UserController>();
+      userController.setUser(responseData['user']); // Set the user data
+
       isLoggedIn.value = true;
       isOtpSent.value = false; // Reset OTP status
       Get.snackbar('Success', 'Logged in successfully!');
