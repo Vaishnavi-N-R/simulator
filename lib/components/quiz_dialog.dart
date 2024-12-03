@@ -21,14 +21,15 @@ class _QuizDialogState extends State<QuizDialog> {
   int currentQuestionIndex = 0;
   int? selectedOption;
   final UserController userController = Get.find<UserController>();
-  final LearnController learnController = Get.find<LearnController>();
+final LearnController learnController = Get.find<LearnController>();
 
   void checkAnswer() async {
     try {
+            print("controller course id: ${learnController.selectedCourseId.value}");
+
       // Call the service
       final token =
           userController.authToken; // Access token from the controller
-
       final response = await QuizService.submitQuizAnswer(
         userId: userController.user.value!.id, // Replace with dynamic user ID
         courseId: learnController
@@ -37,7 +38,7 @@ class _QuizDialogState extends State<QuizDialog> {
             widget.quizzes[currentQuestionIndex].id, // Dynamic question ID
         submittedOption: selectedOption!, token: token,
       );
-
+      print("Learn controller course id: ${learnController.selectedCourseId}");
       if (response['isCorrect']) {
         Get.snackbar('Correct!', 'You answered correctly!',
             backgroundColor: Colors.green, snackPosition: SnackPosition.BOTTOM);

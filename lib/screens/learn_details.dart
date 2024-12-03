@@ -44,6 +44,7 @@ class LearnDetails extends StatelessWidget {
                 content: lesson.content,
                 id: lesson.id,
               ),
+              
               SizedBox(height: 20), // Add some spacing
               // Button to navigate to the Quiz
               ElevatedButton(

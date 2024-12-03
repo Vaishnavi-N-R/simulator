@@ -7,10 +7,12 @@ import 'package:trade_simulator/widgets/learn/learn_design.dart';
 class LearnView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final LearnController learnController = Get.put(LearnController());
+final LearnController learnController = Get.put(LearnController());
 
     return Scaffold(
       body: Obx(() {
+        
+        print("Learn view Scaffold");
         if (learnController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
         }
@@ -20,21 +22,26 @@ class LearnView extends StatelessWidget {
         }
 
         return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: learnController.learningCourses.length,
-            itemBuilder: (context, index) {
-              var course = learnController.learningCourses[index];
-
-              // Use the LearnDesign widget here
-              return LearnDesign(
-                title: course.title,
-                prizeMoney: course.prizeMoney,
-                id: course.id,
-              );
-            },
-          ),
-        );
+            padding: const EdgeInsets.all(8.0),
+            child: // LearnView snippet
+                ListView.builder(
+              itemCount: learnController.learningCourses.length,
+              itemBuilder: (context, index) {
+                var course = learnController.learningCourses[index];
+                return GestureDetector(
+                  onTap: () {
+                    learnController.selectCourse(course.id);
+                    print("Selected course ID: ${course.id}");
+                  },
+                  child: LearnDesign(
+                    title: course.title,
+                    prizeMoney: course.prizeMoney,
+                    id: course.id,
+                  ),
+                );
+              },
+            ));
+            
       }),
     );
   }
