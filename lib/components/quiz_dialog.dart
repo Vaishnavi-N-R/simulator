@@ -10,8 +10,10 @@ import 'package:trade_simulator/theme/custom_themes/text_theme.dart';
 
 class QuizDialog extends StatefulWidget {
   final List<Quiz> quizzes;
+  
+  final dynamic id;
 
-  const QuizDialog({Key? key, required this.quizzes}) : super(key: key);
+  const QuizDialog({Key? key, required this.quizzes, required this.id}) : super(key: key);
 
   @override
   _QuizDialogState createState() => _QuizDialogState();
@@ -32,8 +34,7 @@ final LearnController learnController = Get.find<LearnController>();
           userController.authToken; // Access token from the controller
       final response = await QuizService.submitQuizAnswer(
         userId: userController.user.value!.id, // Replace with dynamic user ID
-        courseId: learnController
-            .selectedCourseId.value, // Replace with dynamic course ID
+        courseId:widget.id, // Replace with dynamic course ID
         questionId:
             widget.quizzes[currentQuestionIndex].id, // Dynamic question ID
         submittedOption: selectedOption!, token: token,

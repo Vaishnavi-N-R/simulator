@@ -13,8 +13,10 @@ import 'package:trade_simulator/widgets/login/login_bottom_sheet.dart';
 
 class LearnDetails extends StatelessWidget {
   final String lessonId;
+
   const LearnDetails({Key? key, required this.lessonId})
       : super(key: key); // Constructor
+
   @override
   Widget build(BuildContext context) {
     final LoginController loginController = Get.put(LoginController());
@@ -30,6 +32,7 @@ class LearnDetails extends StatelessWidget {
         var lesson = learnController.learningCourses.firstWhere(
           (lesson) => lesson.id == lessonId,
         );
+        print("Lesonnnnnn id:${lesson.id}");
         if (lesson == null) {
           return Center(child: Text("No lesson found with the given ID."));
         }
@@ -53,7 +56,7 @@ class LearnDetails extends StatelessWidget {
                     // Show Quiz Dialog if the user is logged in
                     showDialog(
                       context: context,
-                      builder: (context) => QuizDialog(quizzes: lesson.quiz),
+                      builder: (context) => QuizDialog(quizzes: lesson.quiz, id: lesson.id,),
                     );
                   } else {
                     // Show Bottom Sheet to login if the user is not logged in
