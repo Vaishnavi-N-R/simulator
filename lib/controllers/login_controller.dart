@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   final otpController = TextEditingController();
   var fullPhoneNumber = ''.obs;
 
-  final _storage = FlutterSecureStorage();  // Secure storage instance
+  final _storage = FlutterSecureStorage(); // Secure storage instance
 
   @override
   void onInit() {
@@ -51,7 +51,8 @@ class LoginController extends GetxController {
       userController.setToken(responseData['token']);
 
       // Store user data and token securely
-      await _storage.write(key: 'user', value: jsonEncode(responseData['user']));
+      await _storage.write(
+          key: 'user', value: jsonEncode(responseData['user']));
       await _storage.write(key: 'token', value: responseData['token']);
 
       isLoggedIn.value = true;
@@ -64,6 +65,7 @@ class LoginController extends GetxController {
 
   Future<void> checkLoginStatus() async {
     final token = await _storage.read(key: 'token');
+    print('Access token:$token');
     if (token != null) {
       final userData = await _storage.read(key: 'user');
       final UserController userController = Get.find<UserController>();
@@ -76,7 +78,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> logout() async {
-    await _storage.deleteAll();  // Clear storage
+    await _storage.deleteAll(); // Clear storage
     isLoggedIn.value = false;
     Get.find<UserController>().clearUser();
   }

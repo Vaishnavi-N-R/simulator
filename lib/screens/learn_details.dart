@@ -17,7 +17,7 @@ class LearnDetails extends StatelessWidget {
       : super(key: key); // Constructor
   @override
   Widget build(BuildContext context) {
-      final LoginController loginController = Get.put(LoginController());
+    final LoginController loginController = Get.put(LoginController());
 
     final LearnController learnController = Get.put(LearnController());
 
@@ -44,21 +44,21 @@ class LearnDetails extends StatelessWidget {
                 content: lesson.content,
                 id: lesson.id,
               ),
-              
+
               SizedBox(height: 20), // Add some spacing
               // Button to navigate to the Quiz
               ElevatedButton(
                 onPressed: () {
                   if (loginController.isLoggedIn.value) {
-            // Show Quiz Dialog if the user is logged in
-            showDialog(
-              context: context,
-              builder: (context) => QuizDialog(quizzes: lesson.quiz),
-            );
-          } else {
-            // Show Bottom Sheet to login if the user is not logged in
-            Get.bottomSheet(LoginBottomSheet());
-          }
+                    // Show Quiz Dialog if the user is logged in
+                    showDialog(
+                      context: context,
+                      builder: (context) => QuizDialog(quizzes: lesson.quiz),
+                    );
+                  } else {
+                    // Show Bottom Sheet to login if the user is not logged in
+                    Get.bottomSheet(LoginBottomSheet());
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
