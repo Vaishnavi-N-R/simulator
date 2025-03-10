@@ -11,12 +11,15 @@ class LearnDesign extends StatelessWidget {
   final String title;
   final int prizeMoney;
   final String id;
+  final String status; // Added status field
 
   const LearnDesign({
     Key? key,
     required this.title,
     required this.prizeMoney,
-    required this.id,
+      required this.id,
+
+    required this.status, // Add status to constructor
   }) : super(key: key);
 
   @override
@@ -25,7 +28,8 @@ class LearnDesign extends StatelessWidget {
         onTap: () => {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LearnDetails(lessonId: id)),
+                MaterialPageRoute(
+                    builder: (context) => LearnDetails(lessonId: id)),
               )
             },
         child: CardDesignContainer(
@@ -54,6 +58,19 @@ class LearnDesign extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color:
                             Get.isDarkMode ? Colors.green : Colors.green[700]),
+                  ),
+                  SizedBox(width: 10),
+
+                  // Status Section
+                  Text(
+                    'Status: $status', // Display the status
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: status == 'uncompleted'
+                          ? Colors.red
+                          : Colors.green, // Highlight 'uncompleted' in red
+                    ),
                   ),
                 ],
               ),

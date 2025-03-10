@@ -37,6 +37,8 @@ final LearnController learnController = Get.put(LearnController());
                     title: course.title,
                     prizeMoney: course.prizeMoney,
                     id: course.id,
+                          status: course.status, // Pass the status here
+
                   ),
                 );
               },
