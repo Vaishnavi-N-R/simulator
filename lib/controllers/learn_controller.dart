@@ -6,40 +6,39 @@ class LearnController extends GetxController {
   var learningCourses = <LearningCourse>[].obs;
   var isLoading = true.obs;
   var category = "defaultCategory".obs;
-  var selectedCourseId = RxString(""); // To hold the current course ID
-// Placeholder for category if needed
+  var selectedCourseId = RxString(""); // Holds the current course ID
 
   @override
   void onInit() {
-    fetchLearningCourses(category.value);
+    // Correct lifecycle method
     super.onInit();
+    fetchLearningCourses(category.value); // Ensure courses are fetched
   }
 
   void fetchLearningCourses(String category) async {
     try {
       isLoading(true);
-
-      // Fetch the courses from your API
       var response = await RemoteServices.fetchLessons(category);
-
-      if (response != null) {
-        // Ensure that each course has all the necessary properties
-        response = response.where((course) {
-          return course.title.isNotEmpty &&
-              course.content.isNotEmpty &&
-              course.status.isNotEmpty; // Adjust conditions as per your need
-        }).toList();
-
-        // Assign the filtered courses to the list
+      if (response != null && response.isNotEmpty) {
         learningCourses.assignAll(response);
-        void selectCourse(String courseId) {
-          selectedCourseId.value = courseId;
+        // Set the selected course ID (for simplicity, select the first course)
+        if (learningCourses.isNotEmpty) {
+          selectedCourseId.value = learningCourses.first.id;
+          selectCourse(selectedCourseId.value);
         }
+      } else {
+        print("No valid courses found in the response.");
       }
     } catch (e) {
       print('Error fetching learning courses: $e');
     } finally {
       isLoading(false);
     }
+  }
+
+  void selectCourse(String courseId) {
+    selectedCourseId.value = courseId;
+    print(
+        "Selected course ID updated to: $courseId"); // Debugging print statement
   }
 }

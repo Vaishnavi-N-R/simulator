@@ -1,56 +1,114 @@
-// controller/login_controller.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:trade_simulator/constants/data.dart';
 import 'package:trade_simulator/controllers/user_controller.dart';
+import 'package:trade_simulator/services/storage_service.dart';
 
 class LoginController extends GetxController {
   var isLoggedIn = false.obs;
   var isOtpSent = false.obs;
   final phoneNumberController = TextEditingController();
   final otpController = TextEditingController();
-
-  // Add a variable to store the full phone number (with country code)
   var fullPhoneNumber = ''.obs;
 
-  Future<void> requestVerification(String phoneNumber) async {
-    final response = await http.post(
-      Uri.parse('${Data.BASE_URL}/auth/request-verification'),
-      body: jsonEncode({"phoneNumber": phoneNumber}),
-      headers: {'Content-Type': 'application/json'},
-    );
+  final StorageService _storageService =
+      StorageService(); // Use the StorageService
 
-    if (response.statusCode == 200) {
-      isOtpSent.value = true; // Set OTP status to true
-      Get.snackbar('Success', 'Verification code sent.');
-    } else {
-      Get.snackbar('Error', 'Failed to send verification code.');
+  @override
+  void onInit() {
+    super.onInit();
+    checkLoginStatus(); // Check if the user is already logged in
+  }
+
+  // Function to request OTP verification code
+  Future<void> requestVerification(String phoneNumber) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Data.BASE_URL}/auth/request-verification'),
+        body: jsonEncode({"phoneNumber": phoneNumber}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        isOtpSent.value = true;
+        Get.snackbar('Success', 'Verification code sent.');
+      } else {
+        final responseData = jsonDecode(response.body);
+        Get.snackbar('Error',
+            responseData['message'] ?? 'Failed to send verification code.');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
     }
   }
 
+  // Function to verify OTP code
   Future<void> verifyCode(String phoneNumber, String code) async {
-    final response = await http.post(
-      Uri.parse('${Data.BASE_URL}/auth/verify-code'),
-      body: jsonEncode({"phoneNumber": phoneNumber, "code": code}),
-      headers: {'Content-Type': 'application/json'},
-    );
+    try {
+      final response = await http.post(
+        Uri.parse('${Data.BASE_URL}/auth/verify-code'),
+        body: jsonEncode({"phoneNumber": phoneNumber, "code": code}),
+        headers: {'Content-Type': 'application/json'},
+      );
 
-    if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        final UserController userController = Get.find<UserController>();
 
-      // Get the instance of UserController
-      final UserController userController = Get.find<UserController>();
-      userController.setUser(responseData['user']);
-                userController.setToken(responseData['token']); // Set the token
-// Set the user data
+        userController.setUser(responseData['user']);
+        userController.setToken(responseData['token']);
 
-      isLoggedIn.value = true;
-      isOtpSent.value = false; // Reset OTP status
-      Get.snackbar('Success', 'Logged in successfully!');
-    } else {
-      Get.snackbar('Error', 'Invalid OTP, please try again.');
+        // Store user data and token securely using StorageService
+        await _storageService.saveUserData(
+            responseData['user'], responseData['token']);
+
+        isLoggedIn.value = true;
+        isOtpSent.value = false;
+        Get.snackbar('Success', 'Logged in successfully!');
+      } else {
+        final responseData = jsonDecode(response.body);
+        Get.snackbar('Error',
+            responseData['message'] ?? 'Invalid OTP, please try again.');
+      }
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred: $e');
+    }
+  }
+
+  // Function to check if the user is already logged in
+  Future<void> checkLoginStatus() async {
+    print("object");
+    try {
+      final token = await _storageService.getToken();
+      print("TOken is $token");
+      if (token != null) {
+        final userData = await _storageService.getUserData();
+        final UserController userController = Get.find<UserController>();
+
+        userController.setToken(token);
+        if (userData != null) {
+          userController.setUser(userData);
+          isLoggedIn.value = true;
+          print('User is logged in with token: $token');
+        }
+      }
+    } catch (e) {
+      print('Error checking login status: $e');
+    }
+  }
+
+  // Function to log out the user
+  Future<void> logout() async {
+    try {
+      await _storageService
+          .clearUserData(); // Clear storage using StorageService
+      isLoggedIn.value = false;
+      Get.find<UserController>().clearUser();
+      Get.snackbar('Success', 'Logged out successfully.');
+    } catch (e) {
+      Get.snackbar('Error', 'An error occurred while logging out: $e');
     }
   }
 }
